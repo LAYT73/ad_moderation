@@ -1,5 +1,11 @@
+import { Title } from '@mantine/core';
+
 const NotFoundPage = () => {
-  return <div className="min-h-screen flex items-center justify-center">404: Not Found</div>;
+  return (
+    <Title order={1} className="text-center">
+      404: Not Found
+    </Title>
+  );
 };
 
 export default NotFoundPage;

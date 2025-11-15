@@ -1,6 +1,7 @@
 import { MantineProvider } from '@mantine/core';
 import { type ReactNode } from 'react';
 
+import { QueryProvider } from './queryProvider';
 import { ErrorBoundary } from '../ui/ErrorBoundary';
 
 interface AppProvidersProps {
@@ -10,7 +11,9 @@ interface AppProvidersProps {
 export const AppProviders = ({ children }: AppProvidersProps) => {
   return (
     <ErrorBoundary>
-      <MantineProvider defaultColorScheme={'dark'}>{children}</MantineProvider>
+      <QueryProvider>
+        <MantineProvider defaultColorScheme={'dark'}>{children}</MantineProvider>
+      </QueryProvider>
     </ErrorBoundary>
   );
 };

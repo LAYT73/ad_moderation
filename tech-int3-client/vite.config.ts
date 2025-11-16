@@ -6,7 +6,7 @@ import svgr from 'vite-plugin-svgr';
 import path from 'path';
 import tailwindcss from '@tailwindcss/vite';
 
-export default defineConfig(({ command, mode }) => ({
+export default defineConfig(({ mode }) => ({
   preview: { allowedHosts: true },
   plugins: [
     svgr({ include: '**/*.svg' }),

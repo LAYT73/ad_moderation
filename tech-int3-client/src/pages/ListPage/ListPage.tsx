@@ -9,10 +9,12 @@ import { useAdsFilters, AdsFilters } from '@/features/ads-filters';
 import { BulkActionsBar, useSelection } from '@/features/bulk-actions';
 import { useAdsList } from '@/shared/api';
 import { adsApi } from '@/shared/api/resources/ads/ads.api';
+import { useListPageHotkeys } from '@/shared/hooks/useHotkeys';
 import { runConcurrently } from '@/shared/lib/utils';
 
 const ListPage = () => {
   const qc = useQueryClient();
+  useListPageHotkeys();
   const { filters, debouncedFilters, updateFilters, resetFilters } = useAdsFilters();
   const { data, isLoading, isError, error } = useAdsList({
     page: filters.page,

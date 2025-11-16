@@ -47,6 +47,7 @@ export function ModeratorActionsPanel({
           leftSection={<IconX />}
           onClick={() => setRejectModal(true)}
           disabled={adStatus === 'rejected'}
+          aria-label="Открыть модальное окно отклонения"
         >
           Отклонить
         </Button>

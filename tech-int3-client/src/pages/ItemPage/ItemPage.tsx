@@ -4,12 +4,14 @@ import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 
 import { useAd } from '@/shared/hooks/useAd';
 import { useAdIdsList } from '@/shared/hooks/useAdIdsList';
+import { useItemPageHotkeys } from '@/shared/hooks/useHotkeys';
 import { useModerationMutations } from '@/shared/hooks/useModerationMutations';
 
 import { AdCharacteristics } from './components/AdCharacteristics';
 import { AdDetails } from './components/AdDetails';
 import { AdImagesGallery } from './components/AdImagesGallery';
 import { AdSeller } from './components/AdSeller';
+import { HotkeysHint } from './components/HotkeysHint';
 import { ItemNavigation } from './components/ItemNavigation';
 import { ModerationHistoryTable } from './components/ModerationHistoryTable';
 import { ModeratorActionsPanel } from './components/ModeratorActionsPanel';
@@ -29,6 +31,26 @@ export default function ItemPage() {
   const nextId = idx < ids.length - 1 ? ids[idx + 1] : undefined;
 
   const moderation = useModerationMutations(adId);
+
+  useItemPageHotkeys({
+    onApprove: () => {
+      if (ad?.status !== 'approved' && !moderation.approveMutation.isPending) {
+        moderation.approveMutation.mutate();
+      }
+    },
+    onReject: () => {
+      if (ad?.status !== 'rejected' && !moderation.rejectMutation.isPending) {
+        // Открываем модальное окно для отклонения
+        const rejectButton = document.querySelector(
+          '[aria-label="Открыть модальное окно отклонения"]',
+        ) as HTMLButtonElement;
+        if (rejectButton) rejectButton.click();
+      }
+    },
+    onNext: nextId ? () => navigate(`/item/${nextId}`) : undefined,
+    onPrev: prevId ? () => navigate(`/item/${prevId}`) : undefined,
+    disabled: isLoading || isError,
+  });
 
   if (isLoading)
     return (
@@ -61,6 +83,15 @@ export default function ItemPage() {
         <ModerationHistoryTable history={ad.moderationHistory} />
         <ModeratorActionsPanel {...moderation} adStatus={ad.status} />
       </Stack>
+
+      <HotkeysHint
+        shortcuts={[
+          { key: 'A', description: 'Одобрить' },
+          { key: 'D', description: 'Отклонить' },
+          { key: '←', description: 'Предыдущее' },
+          { key: '→', description: 'Следующее' },
+        ]}
+      />
     </Container>
   );
 }

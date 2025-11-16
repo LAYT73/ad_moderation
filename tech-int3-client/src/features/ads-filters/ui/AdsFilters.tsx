@@ -60,6 +60,7 @@ export const AdsFilters = memo((props: AdsFiltersProps) => {
   return (
     <Stack gap="md">
       <TextInput
+        type="search"
         placeholder="Поиск по названию..."
         value={search}
         onChange={(e) => onSearchChange(e.currentTarget.value)}

@@ -1,6 +1,7 @@
 import { AxiosError } from 'axios';
 
 import { type HttpStatusType } from '@/shared/api/http-status';
+import { httpStatusMessage } from '@/shared/api/http-status';
 import { EHttpError, type HttpErrorType } from '@/shared/errors/http/HttpError.types';
 
 export class HttpError extends Error {
@@ -18,27 +19,23 @@ export class HttpError extends Error {
 
   static fromAxiosError(error: AxiosError): HttpError {
     if (error.code === 'ECONNABORTED' || /timeout/i.test(error.message)) {
-      return new HttpError(EHttpError.TIMEOUT, 'Request timed out');
+      return new HttpError(EHttpError.TIMEOUT, 'Превышено время ожидания');
     }
-
     const status = error.response?.status;
     const data = error.response?.data;
     const statusText = error.response?.statusText;
-
     if (status) {
-      let message = 'Server Error';
+      let rawMessage = 'Server Error';
       if (data && typeof data === 'object' && data !== null) {
-        message = ((data as Record<string, unknown>).message as string) || statusText || message;
+        rawMessage = ((data as Record<string, unknown>).message as string) || statusText || rawMessage;
       } else {
-        message = statusText || message;
+        rawMessage = statusText || rawMessage;
       }
-
-      if (status >= 500) return new HttpError(EHttpError.SERVER, message, status, data);
-      return new HttpError(EHttpError.CLIENT, message, status, data);
+      const friendly = httpStatusMessage(status, rawMessage);
+      if (status >= 500) return new HttpError(EHttpError.SERVER, friendly, status, data);
+      return new HttpError(EHttpError.CLIENT, friendly, status, data);
     }
-
-    if (error.request) return new HttpError(EHttpError.NETWORK, 'Network error. Check connection.');
-
+    if (error.request) return new HttpError(EHttpError.NETWORK, 'Сетевая ошибка. Проверьте соединение.');
     return new HttpError(EHttpError.UNKNOWN, error.message);
   }
 }

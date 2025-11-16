@@ -5,6 +5,9 @@ import { HttpError } from '@/shared/errors';
 import { EHttpMethod, type HttpMethodType, type IRequestOptions } from './http-types';
 import instance from './instance';
 
+type QueryPrimitive = string | number | boolean;
+type QueryValue = QueryPrimitive | QueryPrimitive[];
+
 export class HttpClient {
   private readonly axiosInstance: AxiosInstance;
 
@@ -17,11 +20,11 @@ export class HttpClient {
     return endpoint.replace(/^\/+/, '');
   }
 
-  private async execute<TResp = unknown, TData = unknown, TParams = Record<string, string | number | boolean>>(
-    method: HttpMethodType,
-    url: string,
-    options?: IRequestOptions<TData, TParams>,
-  ): Promise<TResp> {
+  private async execute<
+    TResp = unknown,
+    TData = unknown,
+    TParams extends Record<string, QueryValue> = Record<string, QueryValue>,
+  >(method: HttpMethodType, url: string, options?: IRequestOptions<TData, TParams>): Promise<TResp> {
     const axiosConfig: AxiosRequestConfig = {
       method,
       url: this.getUrl(url),
@@ -46,7 +49,7 @@ export class HttpClient {
   }
 
   private createMethod(method: HttpMethodType) {
-    return <TResp = unknown, TData = unknown, TParams = Record<string, string | number | boolean>>(
+    return <TResp = unknown, TData = unknown, TParams extends Record<string, QueryValue> = Record<string, QueryValue>>(
       url: string,
       options?: IRequestOptions<TData, TParams>,
     ) => this.execute<TResp, TData, TParams>(method, url, options);

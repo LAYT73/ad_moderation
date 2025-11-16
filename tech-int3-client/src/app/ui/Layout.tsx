@@ -1,3 +1,3 @@
 export const Layout = ({ children }: { children: React.ReactNode }) => {
-  return <div className="min-h-screen flex items-center justify-center">{children}</div>;
+  return <div className="min-h-screen min-w-screen flex items-center justify-center">{children}</div>;
 };

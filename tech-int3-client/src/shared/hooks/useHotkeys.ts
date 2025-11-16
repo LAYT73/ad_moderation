@@ -63,7 +63,7 @@ export function useItemPageHotkeys({ onApprove, onReject, onNext, onPrev, disabl
 export function useListPageHotkeys() {
   // / - фокус на поиск
   useHotkeysHook(
-    '/',
+    ['/', 'slash', 'shift+7'],
     (e) => {
       e.preventDefault();
       const searchInput = document.querySelector('input[type="search"]') as HTMLInputElement;

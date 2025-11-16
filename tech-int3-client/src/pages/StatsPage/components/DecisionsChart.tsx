@@ -12,9 +12,9 @@ const COLORS = ['#51cf66', '#ff6b6b', '#ffd43b'];
 
 export const DecisionsChart = memo(({ data }: DecisionsChartProps) => {
   const chartData = [
-    { name: 'Одобрено', value: data.approved },
-    { name: 'Отклонено', value: data.rejected },
-    { name: 'На доработку', value: data.requestChanges },
+    { name: 'Одобрено', value: Number(data.approved.toFixed(2)) },
+    { name: 'Отклонено', value: Number(data.rejected.toFixed(2)) },
+    { name: 'На доработку', value: Number(data.requestChanges.toFixed(2)) },
   ];
 
   return (

@@ -1,10 +1,11 @@
-import { Alert, Center, Container, Loader, Stack, Title } from '@mantine/core';
+import { Alert, Center, Container, Group, Loader, Stack, Title } from '@mantine/core';
 import { IconAlertCircle } from '@tabler/icons-react';
 import { useState } from 'react';
 
 import { ActivityChart } from '@/pages/StatsPage/components/ActivityChart';
 import { CategoriesChart } from '@/pages/StatsPage/components/CategoriesChart';
 import { DecisionsChart } from '@/pages/StatsPage/components/DecisionsChart';
+import { ExportButtons } from '@/pages/StatsPage/components/ExportButtons';
 import { PeriodFilter } from '@/pages/StatsPage/components/PeriodFilter';
 import { StatsCards } from '@/pages/StatsPage/components/StatsCards';
 import { useActivityChart, useCategoriesChart, useDecisionsChart, useStatsSummary } from '@/shared/api/resources/stats';
@@ -43,10 +44,24 @@ const StatsPage = () => {
     );
   }
 
+  // Проверяем наличие всех данных для экспорта
+  const canExport = summary && activity && decisions && categories;
+
   return (
     <Container size="xl" py="xl">
       <Stack gap="xl">
-        <Title order={1}>Статистика модератора</Title>
+        <Group justify="space-between" align="center">
+          <Title order={1}>Статистика модератора</Title>
+          {canExport && (
+            <ExportButtons
+              summary={summary}
+              activity={activity}
+              decisions={decisions}
+              categories={categories}
+              period={period}
+            />
+          )}
+        </Group>
 
         <PeriodFilter period={period} onChange={setPeriod} />
 

@@ -2,13 +2,15 @@ import { Alert, Center, Container, Group, Loader, Stack, Title } from '@mantine/
 import { IconAlertCircle } from '@tabler/icons-react';
 import { useState } from 'react';
 
-import { ActivityChart } from '@/pages/StatsPage/components/ActivityChart';
-import { CategoriesChart } from '@/pages/StatsPage/components/CategoriesChart';
-import { DecisionsChart } from '@/pages/StatsPage/components/DecisionsChart';
-import { ExportButtons } from '@/pages/StatsPage/components/ExportButtons';
-import { PeriodFilter } from '@/pages/StatsPage/components/PeriodFilter';
-import { StatsCards } from '@/pages/StatsPage/components/StatsCards';
-import { useActivityChart, useCategoriesChart, useDecisionsChart, useStatsSummary } from '@/shared/api/resources/stats';
+import {
+  ActivityChart,
+  CategoriesChart,
+  DecisionsChart,
+  ExportButtons,
+  PeriodFilter,
+  StatsCards,
+} from '@/pages/StatsPage/components';
+import { useActivityChart, useCategoriesChart, useDecisionsChart, useStatsSummary } from '@/shared/api';
 
 const StatsPage = () => {
   const [period, setPeriod] = useState<'today' | 'week' | 'month'>('week');

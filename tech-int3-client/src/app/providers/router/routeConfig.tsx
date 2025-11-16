@@ -1,11 +1,15 @@
-import { Navigate } from 'react-router-dom';
+import { lazy } from 'react';
+import { type RouteObject } from 'react-router-dom';
 
-import { ItemPage, ListPage, NotFoundPage, StatsPage } from '@/pages';
+const ListPage = lazy(() => import('@/pages/ListPage/ListPage'));
+const ItemPage = lazy(() => import('@/pages/ItemPage/ItemPage'));
+const StatsPage = lazy(() => import('@/pages/StatsPage/StatsPage'));
+const NotFoundPage = lazy(() => import('@/pages/NotFoundPage/NotFoundPage'));
 
-export const routeConfig = [
+export const routeConfig: RouteObject[] = [
   {
     path: '/',
-    element: <Navigate to="/list" replace />,
+    element: <ListPage />,
   },
   {
     path: '/list',

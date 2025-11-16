@@ -10,17 +10,65 @@ export default defineConfig(({ mode }) => ({
   plugins: [
     checker({
       typescript: true,
-      eslint: { lintCommand: 'eslint "./src/**/*.{ts,tsx,js,jsx}"', useFlatConfig: true },
+      eslint: {
+        lintCommand: 'eslint "./src/**/*.{ts,tsx,js,jsx}"',
+        useFlatConfig: true,
+      },
     }),
-    visualizer({ open: false, gzipSize: true, brotliSize: true }) as any,
+    visualizer({
+      open: false,
+      gzipSize: true,
+      brotliSize: true,
+      filename: 'stats.html',
+    }) as any,
     tailwindcss(),
     react(),
   ],
   resolve: { alias: { '@': path.resolve(__dirname, './src') } },
   build: {
     target: 'esnext',
+    minify: mode === 'production' ? 'esbuild' : false,
     sourcemap: mode !== 'production',
-    chunkSizeWarningLimit: 1000,
+    chunkSizeWarningLimit: 500, // Снижаем порог предупреждений
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // React ecosystem
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+
+          // Mantine UI
+          'mantine-core': ['@mantine/core', '@mantine/hooks'],
+
+          // Icons (самый тяжелый пакет)
+          icons: ['@tabler/icons-react'],
+
+          // Charts
+          charts: ['recharts'],
+
+          // Animations
+          animations: ['framer-motion'],
+
+          // Data processing
+          'data-utils': ['papaparse', 'jspdf', 'jspdf-autotable'],
+
+          // API & State
+          'api-state': ['@tanstack/react-query', 'axios', 'zod'],
+        },
+      },
+    },
   },
   server: { hmr: { overlay: false } },
+  // Оптимизация зависимостей
+  optimizeDeps: {
+    include: [
+      'react',
+      'react-dom',
+      'react-router-dom',
+      '@mantine/core',
+      '@mantine/hooks',
+      '@tanstack/react-query',
+      'axios',
+      'zod',
+    ],
+  },
 }));

@@ -1,5 +1,5 @@
 import { ActionIcon, Tooltip } from '@mantine/core';
-import { IconUser, IconList } from '@tabler/icons-react';
+import { IconChartBar, IconList } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
 
 import { ScrollToTop } from '@/app/ui/ScrollToTop';
@@ -23,7 +23,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
             onClick={() => navigate('/stats')}
             aria-label="Go to stats"
           >
-            <IconUser size={18} />
+            <IconChartBar size={18} />
           </ActionIcon>
         </Tooltip>
       </div>

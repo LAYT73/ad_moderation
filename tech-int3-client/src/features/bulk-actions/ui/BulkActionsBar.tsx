@@ -49,9 +49,10 @@ export const BulkActionsBar = ({
     >
       <Group justify="space-between" align="center" className="w-full px-16">
         <Group>
-          <Text>
-            Выбрано объявлений: <Badge color="blue">{selectedCount}</Badge>
-          </Text>
+          <Group gap={8} align="center">
+            <Text>Выбрано объявлений:</Text>
+            <Badge color="blue">{selectedCount}</Badge>
+          </Group>
           <Text size="sm" c="dimmed">
             На странице: {pageTotal}
           </Text>

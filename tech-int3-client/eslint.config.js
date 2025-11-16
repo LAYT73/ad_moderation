@@ -13,7 +13,17 @@ export default [
   js.configs.recommended,
   {
     files: ['src/**/*.{js,jsx,ts,tsx}'],
-    ignores: ['**/*.d.ts', 'dist', 'build', 'node_modules', 'vite.config.ts'],
+    ignores: [
+      '**/*.d.ts',
+      'dist',
+      'build',
+      'node_modules',
+      'vite.config.ts',
+      '**/*.spec.ts',
+      '**/*.spec.tsx',
+      '**/*.test.ts',
+      '**/*.test.tsx',
+    ],
     languageOptions: {
       globals: {
         ...globals.browser,
@@ -24,10 +34,7 @@ export default [
       },
       parser: typescriptParser,
       parserOptions: {
-        ecmaVersion: 'latest',
-        sourceType: 'module',
-        ecmaFeatures: { jsx: true },
-        project: './tsconfig.app.json',
+        project: undefined,
       },
     },
     plugins: {

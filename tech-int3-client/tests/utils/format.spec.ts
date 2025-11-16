@@ -1,6 +1,6 @@
 import { describe, it, expect } from '@jest/globals';
 
-import { formatPrice, formatDate, formatDateShort } from '../format';
+import { formatPrice, formatDate, formatDateShort } from '@/shared/lib/utils/format';
 
 describe('format utils', () => {
   describe('formatPrice', () => {

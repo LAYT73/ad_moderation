@@ -2,7 +2,7 @@ import { Card, Title } from '@mantine/core';
 import { memo } from 'react';
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
-import type { CategoriesData } from '@/shared/api/resources/advertisements';
+import type { CategoriesData } from '@/shared/api/resources/stats';
 
 interface CategoriesChartProps {
   data: CategoriesData;

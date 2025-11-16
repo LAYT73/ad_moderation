@@ -12,7 +12,7 @@ import { renderHook, act } from '@testing-library/react';
 import { type ReactNode } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
-import { useAdsFilters } from '../useAdsFilters';
+import { useAdsFilters } from '@/features/ads-filters/hooks/useAdsFilters';
 
 const wrapper = ({ children }: { children: ReactNode }) => <BrowserRouter>{children}</BrowserRouter>;
 

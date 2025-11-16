@@ -1,6 +1,6 @@
 import { describe, it, expect, jest } from '@jest/globals';
 
-import { runConcurrently } from '../runConcurrently';
+import { runConcurrently } from '@/shared/lib/utils/runConcurrently';
 
 describe('runConcurrently', () => {
   it('должен успешно обрабатывать все элементы', async () => {

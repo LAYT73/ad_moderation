@@ -1,15 +1,11 @@
-import React from 'react';
+import { useEffect } from 'react';
 
 export const ScrollToTop = () => {
   const { pathname } = window.location;
 
-  React.useEffect(() => {
-    scrollToTop();
-  }, [pathname]);
-
-  const scrollToTop = () => {
+  useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  }, [pathname]);
 
   return null;
 };

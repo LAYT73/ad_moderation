@@ -76,7 +76,7 @@ export default function ItemPage() {
     <Container size="lg" py="xl">
       <Stack gap="xl">
         <ItemNavigation page={page} prevId={prevId} nextId={nextId} />
-        <AdImagesGallery images={ad.images as string[]} />
+        <AdImagesGallery images={ad.images} />
         <AdDetails ad={ad} />
         <AdCharacteristics characteristics={ad.characteristics} />
         <AdSeller ad={ad} />

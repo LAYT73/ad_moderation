@@ -135,7 +135,6 @@ Runtime/UI:
 - eslint (flat), prettier — качество кода ([eslint.config.js](eslint.config.js), [.prettierrc.json](.prettierrc.json))
 - husky, lint-staged — pre-commit хуки
 - jest — юнит‑тесты ([jest.config.js](jest.config.js), [src/setupTests.ts](src/setupTests.ts))
-- svgr — импорт .svg как React-компонентов
 
 ## Работа с API
 

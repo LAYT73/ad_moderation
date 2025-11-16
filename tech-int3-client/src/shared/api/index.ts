@@ -1,2 +1,2 @@
 export { httpClient } from './http-client';
-export * from './resources/ads';
+export * from './resources/advertisements';

@@ -2,7 +2,7 @@ import { Badge, Button, Group, Modal, Select, Stack, Text, Textarea } from '@man
 import { useDisclosure } from '@mantine/hooks';
 import { useState } from 'react';
 
-import { DecisionReasonEnum, type DecisionReason } from '@/shared/api/resources/ads/ads.schemas';
+import { DecisionReasonEnum, type DecisionReason } from '@/shared/api/resources/advertisements/ads.schemas';
 
 interface BulkActionsBarProps {
   selectedCount: number;

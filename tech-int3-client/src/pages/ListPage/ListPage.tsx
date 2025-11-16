@@ -8,7 +8,7 @@ import { AdCard } from '@/entities/ad/ui/AdCard';
 import { useAdsFilters, AdsFilters } from '@/features/ads-filters';
 import { BulkActionsBar, useSelection } from '@/features/bulk-actions';
 import { useAdsList } from '@/shared/api';
-import { adsApi } from '@/shared/api/resources/ads/ads.api';
+import { adsApi } from '@/shared/api/resources/advertisements/ads.api';
 import { useListPageHotkeys } from '@/shared/hooks/useHotkeys';
 import { runConcurrently } from '@/shared/lib/utils';
 

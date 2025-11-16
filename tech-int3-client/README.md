@@ -121,7 +121,7 @@ Runtime/UI:
 - react-router-dom v7 — маршрутизация ([routeConfig.tsx](src/app/providers/router/routeConfig.tsx))
 - @tanstack/react-query — кеширование и управление серверным состоянием ([QueryProvider](src/app/providers/queryProvider/QueryProvider.tsx))
 - axios — HTTP‑клиент + перехватчики/ретраи ([http-factory.ts](src/shared/api/http-factory.ts))
-- zod — валидация ответов API ([ads.schemas.ts](src/shared/api/resources/ads/ads.schemas.ts), [stats.schemas.ts](src/shared/api/resources/stats/stats.schemas.ts))
+- zod — валидация ответов API ([ads.schemas.ts](src/shared/api/resources/advertisements/ads.schemas.ts), [stats.schemas.ts](src/shared/api/resources/stats/stats.schemas.ts))
 - recharts — графики на /stats
 - react-hotkeys-hook — горячие клавиши ([useHotkeys.ts](src/shared/hooks/useHotkeys.ts))
 - papaparse — экспорт статистики в CSV
@@ -142,12 +142,12 @@ Runtime/UI:
 Базовый URL берётся из VITE_API_URL ([instance.ts](src/shared/api/instance.ts)).
 Основные ресурсы:
 
-- Объявления: [ads.api.ts](src/shared/api/resources/ads/ads.api.ts)
+- Объявления: [ads.api.ts](src/shared/api/resources/advertisements/ads.api.ts)
 - Статистика: [stats.api.ts](src/shared/api/resources/stats/stats.api.ts)
 
 Ответы валидируются через Zod-схемы:
 
-- [ads.schemas.ts](src/shared/api/resources/ads/ads.schemas.ts)
+- [ads.schemas.ts](src/shared/api/resources/advertisements/ads.schemas.ts)
 - [stats.schemas.ts](src/shared/api/resources/stats/stats.schemas.ts)
 
 Документация API: [schema.yaml](schema.yaml).

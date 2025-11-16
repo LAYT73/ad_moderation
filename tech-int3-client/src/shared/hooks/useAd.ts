@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { adsApi } from '@/shared/api/resources/ads';
+import { adsApi } from '@/shared/api/resources/advertisements';
 
 export function useAd(adId: number) {
   return useQuery({

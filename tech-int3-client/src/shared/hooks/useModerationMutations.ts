@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 
 import type { AdResponse } from '@/pages/ItemPage/components/ModeratorActionsPanel';
-import { adsApi, type DecisionReason } from '@/shared/api/resources/ads';
+import { adsApi, type DecisionReason } from '@/shared/api/resources/advertisements';
 
 export function useModerationMutations(adId: number) {
   const qc = useQueryClient();

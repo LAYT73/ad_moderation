@@ -3,7 +3,7 @@ import { IconCheck, IconX, IconEdit } from '@tabler/icons-react';
 import { type UseMutationResult } from '@tanstack/react-query';
 import React from 'react';
 
-import { DecisionReasonEnum, type Advertisement } from '@/shared/api/resources/ads';
+import { DecisionReasonEnum, type Advertisement } from '@/shared/api/resources/advertisements';
 
 export type AdResponse = { message: string; ad: Advertisement };
 

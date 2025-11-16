@@ -1,6 +1,6 @@
 import { Stack, Title, Text, Badge, Group } from '@mantine/core';
 
-import { type Advertisement } from '@/shared/api/resources/ads';
+import { type Advertisement } from '@/shared/api/resources/advertisements';
 import { formatPrice, formatDate } from '@/shared/lib/utils';
 
 interface Props {

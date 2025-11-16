@@ -26,7 +26,6 @@ const statusOptions = [
   { value: 'pending', label: 'На модерации' },
   { value: 'approved', label: 'Одобрено' },
   { value: 'rejected', label: 'Отклонено' },
-  { value: 'draft', label: 'Черновик' },
 ];
 
 const sortByOptions = [

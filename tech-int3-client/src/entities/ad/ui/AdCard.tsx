@@ -17,7 +17,6 @@ const statusLabels: Record<Advertisement['status'], string> = {
   pending: 'На модерации',
   approved: 'Одобрено',
   rejected: 'Отклонено',
-  draft: 'Черновик',
 };
 
 const statusColors: Record<Advertisement['status'], string> = {

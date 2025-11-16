@@ -2,13 +2,16 @@ import { AnimatePresence, m, LazyMotion, domAnimation } from 'framer-motion';
 import { Suspense, useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 
+import { Layout } from '@/app/ui/Layout';
 import { LoadingPage } from '@/pages';
 
 import { routeConfig } from './routeConfig';
 
 export const AppRouter = () => (
   <BrowserRouter>
-    <AnimatedSuspenseRoutes />
+    <Layout>
+      <AnimatedSuspenseRoutes />
+    </Layout>
   </BrowserRouter>
 );
 

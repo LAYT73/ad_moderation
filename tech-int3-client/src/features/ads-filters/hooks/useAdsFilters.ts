@@ -66,13 +66,13 @@ export const useAdsFilters = () => {
   }, [setSearchParams]);
 
   return {
-    filters, // для UI (без задержек)
+    filters,
     debouncedFilters: {
       ...filters,
       search: debouncedSearch,
       minPrice: debouncedMinPrice,
       maxPrice: debouncedMaxPrice,
-    }, // для запросов
+    },
     updateFilters,
     resetFilters,
   };

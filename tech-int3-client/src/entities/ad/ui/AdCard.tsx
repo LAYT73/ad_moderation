@@ -37,7 +37,7 @@ export const AdCard = memo(({ ad, selectable, selected, onToggleSelect }: AdCard
   const [imageLoaded, setImageLoaded] = useState(false);
 
   const handleClick = () => {
-    if (!selectable) navigate(`/item/${ad.id}`);
+    navigate(`/item/${ad.id}`);
   };
 
   const handleCheckClick = (e: React.MouseEvent<HTMLElement>) => {

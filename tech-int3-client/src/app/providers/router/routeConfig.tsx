@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom';
 
-import { ListPage, NotFoundPage } from '@/pages';
+import { ItemPage, ListPage, NotFoundPage } from '@/pages';
 
 export const routeConfig = [
   {
@@ -10,6 +10,10 @@ export const routeConfig = [
   {
     path: '/list',
     element: <ListPage />,
+  },
+  {
+    path: '/item/:id',
+    element: <ItemPage />,
   },
   {
     path: '*',

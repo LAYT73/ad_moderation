@@ -1,0 +1,34 @@
+version: "3.9"
+
+services:
+  server:
+    build:
+      context: ./tech-int3-server
+      dockerfile: Dockerfile
+    container_name: ad-moderation-server
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+    volumes:
+      - ./tech-int3-server:/app
+      - /app/node_modules
+    command: npm run dev
+    restart: unless-stopped
+
+  client:
+    build:
+      context: ./tech-int3-client
+      dockerfile: Dockerfile
+    container_name: ad-moderation-client
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:3001/api/v1
+    volumes:
+      - ./tech-int3-client:/app
+      - /app/node_modules
+    command: npm run dev -- --host 0.0.0.0
+    depends_on:
+      - server
+    restart: unless-stopped

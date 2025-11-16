@@ -28,7 +28,6 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
     else this.console.error(`${error.message} ${info.componentStack}`);
   }
 
-  // TODO: заменить на реальный дизайн страницы ошибки
   render() {
     if (this.state.hasError) {
       if (this.props.fallback) return this.props.fallback;

@@ -1,4 +1,4 @@
-import { Badge, Button, Group, Modal, Select, Stack, Text, Textarea } from '@mantine/core';
+import { Badge, Button, Card, Group, Modal, Select, Stack, Text, Textarea } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useState } from 'react';
 
@@ -39,8 +39,8 @@ export const BulkActionsBar = ({
   if (selectedCount === 0) return null;
 
   return (
-    <>
-      <Group justify="space-between" align="center" className="fixed z-10 bg-[#2e2e2e] w-full left-0 top-0 h-16 px-16">
+    <Card shadow="sm" padding="sm" radius="md" withBorder className="fixed z-10 w-full left-0 top-0 ">
+      <Group justify="space-between" align="center" className="w-full px-16">
         <Group>
           <Text>
             Выбрано объявлений: <Badge color="blue">{selectedCount}</Badge>
@@ -91,6 +91,6 @@ export const BulkActionsBar = ({
           </Group>
         </Stack>
       </Modal>
-    </>
+    </Card>
   );
 };

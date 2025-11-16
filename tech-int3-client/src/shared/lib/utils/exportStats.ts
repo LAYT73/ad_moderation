@@ -98,7 +98,6 @@ export function exportStatsToCSV(data: ExportStatsData): void {
  */
 export async function exportStatsToPDF(data: ExportStatsData): Promise<void> {
   const { summary, activity, decisions, categories, period } = data;
-
   const doc = new jsPDF();
   await ensureCyrillicFont(doc);
   if (CYR_FONT_LOADED) {
@@ -117,7 +116,7 @@ export async function exportStatsToPDF(data: ExportStatsData): Promise<void> {
 
   autoTable(doc, {
     startY: 40,
-    head: [['Метрика', 'Значение']],
+    head: [['Metrics', 'Value']],
     body: [
       ['Проверено сегодня', summary.totalReviewedToday.toString()],
       ['Проверено за неделю', summary.totalReviewedThisWeek.toString()],
@@ -128,8 +127,7 @@ export async function exportStatsToPDF(data: ExportStatsData): Promise<void> {
       ['Процент на доработку', `${summary.requestChangesPercentage.toFixed(1)}%`],
     ],
     theme: 'grid',
-    headStyles: { fillColor: [51, 122, 183] },
-    styles: CYR_FONT_LOADED ? { font: CYR_FONT_NAME } : undefined,
+    styles: { font: CYR_FONT_NAME },
   });
 
   // График активности
@@ -139,7 +137,7 @@ export async function exportStatsToPDF(data: ExportStatsData): Promise<void> {
 
   autoTable(doc, {
     startY: activityStartY + 5,
-    head: [['Дата', 'Одобрено', 'Отклонено', 'На доработку']],
+    head: [['Date', 'Approved', 'Rejected', 'Request Changes']],
     body: activity.map((item) => [
       item.date,
       item.approved.toString(),
@@ -158,7 +156,7 @@ export async function exportStatsToPDF(data: ExportStatsData): Promise<void> {
 
   autoTable(doc, {
     startY: decisionsStartY + 5,
-    head: [['Тип решения', 'Процент']],
+    head: [['Decision Type', 'Percentage']],
     body: [
       ['Одобрено', `${decisions.approved.toFixed(1)}%`],
       ['Отклонено', `${decisions.rejected.toFixed(1)}%`],
@@ -175,7 +173,7 @@ export async function exportStatsToPDF(data: ExportStatsData): Promise<void> {
 
   autoTable(doc, {
     startY: categoriesStartY + 5,
-    head: [['Категория', 'Количество']],
+    head: [['Category', 'Count']],
     body: Object.entries(categories).map(([name, value]) => [name, value.toString()]),
     theme: 'striped',
     headStyles: { fillColor: [51, 154, 240] },

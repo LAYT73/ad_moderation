@@ -16,10 +16,10 @@ export default defineConfig(({ mode }) => ({
       },
     }),
     visualizer({
-      open: false,
+      open: true,
       gzipSize: true,
       brotliSize: true,
-      filename: 'stats.html',
+      filename: 'bundle_statistics.html',
     }) as any,
     tailwindcss(),
     react(),

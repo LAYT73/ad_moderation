@@ -28,7 +28,17 @@ export function AdDetails({ ad }: Props) {
       </Text>
       <Group>
         <Badge color={ad.priority === 'urgent' ? 'red' : 'gray'}>{priorityLabels[ad.priority]}</Badge>
-        <Badge color={ad.status === 'approved' ? 'green' : ad.status === 'rejected' ? 'red' : 'yellow'}>
+        <Badge
+          color={
+            ad.status === 'approved'
+              ? 'green'
+              : ad.status === 'rejected'
+                ? 'red'
+                : ad.status === 'draft'
+                  ? 'grey'
+                  : 'yellow'
+          }
+        >
           {statusLabels[ad.status]}
         </Badge>
         <Text size="sm" c="dimmed">

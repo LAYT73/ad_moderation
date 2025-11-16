@@ -39,7 +39,14 @@ export const BulkActionsBar = ({
   if (selectedCount === 0) return null;
 
   return (
-    <Card shadow="sm" padding="sm" radius="md" withBorder className="fixed z-10 w-full left-0 top-0 ">
+    <Card
+      shadow="sm"
+      padding="sm"
+      radius="md"
+      withBorder
+      style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100 }}
+      className="w-full"
+    >
       <Group justify="space-between" align="center" className="w-full px-16">
         <Group>
           <Text>

@@ -6,7 +6,9 @@ export const formatPrice = (price: number): string => {
     style: 'currency',
     currency: 'RUB',
     minimumFractionDigits: 0,
-  }).format(price);
+  })
+    .format(price)
+    .replace(/\u00A0/g, ' ');
 };
 
 /**

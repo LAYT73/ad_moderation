@@ -1,12 +1,18 @@
 import { Alert, Center, Container, Grid, Pagination, Stack, Text, Title } from '@mantine/core';
 import { IconAlertCircle } from '@tabler/icons-react';
+import { useQueryClient } from '@tanstack/react-query';
+import { useMemo, useState, useEffect } from 'react';
 
 import { AdCardSkeleton } from '@/entities/ad';
 import { AdCard } from '@/entities/ad/ui/AdCard';
 import { useAdsFilters, AdsFilters } from '@/features/ads-filters';
+import { BulkActionsBar, useSelection } from '@/features/bulk-actions';
 import { useAdsList } from '@/shared/api';
+import { adsApi } from '@/shared/api/resources/ads/ads.api';
+import { runConcurrently } from '@/shared/lib/utils';
 
 const ListPage = () => {
+  const qc = useQueryClient();
   const { filters, debouncedFilters, updateFilters, resetFilters } = useAdsFilters();
   const { data, isLoading, isError, error } = useAdsList({
     page: filters.page,
@@ -19,6 +25,40 @@ const ListPage = () => {
     sortBy: filters.sortBy,
     sortOrder: filters.sortOrder,
   });
+
+  const { isSelected, toggle, clear, selectAll, count, selectedIds } = useSelection();
+  const [processing, setProcessing] = useState(false);
+  const pageIds = useMemo(() => (data?.ads ?? []).map((a) => a.id), [data?.ads]);
+
+  useEffect(() => {
+    // Чистка выбора при смене страницы/состава данных
+    clear();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data?.pagination.currentPage, data?.ads?.length]);
+
+  const approveSelected = async () => {
+    if (selectedIds.length === 0) return;
+    setProcessing(true);
+    const result = await runConcurrently(selectedIds, (id) => adsApi.approve(id), 4);
+    setProcessing(false);
+    clear();
+    await qc.invalidateQueries({ queryKey: ['ads', 'list'] });
+    if (result.failed.length > 0) {
+      alert(`Одобрено: ${result.success}, ошибок: ${result.failed.length}`);
+    }
+  };
+
+  const rejectSelected = async (reason: Parameters<typeof adsApi.reject>[1]['reason'], comment?: string) => {
+    if (selectedIds.length === 0) return;
+    setProcessing(true);
+    const result = await runConcurrently(selectedIds, (id) => adsApi.reject(id, { reason, comment }), 3);
+    setProcessing(false);
+    clear();
+    await qc.invalidateQueries({ queryKey: ['ads', 'list'] });
+    if (result.failed.length > 0) {
+      alert(`Отклонено: ${result.success}, ошибок: ${result.failed.length}`);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -70,6 +110,16 @@ const ListPage = () => {
           onReset={resetFilters}
         />
 
+        <BulkActionsBar
+          selectedCount={count}
+          pageTotal={pageIds.length}
+          disabled={processing}
+          onClear={clear}
+          onSelectAllOnPage={() => selectAll(pageIds)}
+          onApprove={approveSelected}
+          onReject={rejectSelected}
+        />
+
         {data && (
           <>
             <Text size="sm" c="dimmed">
@@ -86,7 +136,12 @@ const ListPage = () => {
               <Grid>
                 {data.ads.map((ad) => (
                   <Grid.Col key={ad.id} span={{ base: 12, sm: 6, md: 4, lg: 3 }}>
-                    <AdCard ad={ad} />
+                    <AdCard
+                      ad={ad}
+                      selectable
+                      selected={isSelected(ad.id)}
+                      onToggleSelect={(id, next) => toggle(id, next)}
+                    />
                   </Grid.Col>
                 ))}
               </Grid>

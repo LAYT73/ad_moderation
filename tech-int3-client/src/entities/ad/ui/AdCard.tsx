@@ -1,4 +1,4 @@
-import { Badge, Card, Group, Image, Stack, Text, Skeleton } from '@mantine/core';
+import { Badge, Card, Group, Image, Stack, Text, Skeleton, Checkbox } from '@mantine/core';
 import { m } from 'framer-motion';
 import { memo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +8,9 @@ import { formatDate, formatPrice } from '@/shared/lib/utils';
 
 interface AdCardProps {
   ad: Advertisement;
+  selectable?: boolean;
+  selected?: boolean;
+  onToggleSelect?: (id: number, next: boolean) => void;
 }
 
 const statusLabels: Record<Advertisement['status'], string> = {
@@ -29,12 +32,21 @@ const priorityLabels: Record<Advertisement['priority'], string> = {
   urgent: 'Срочный',
 };
 
-export const AdCard = memo(({ ad }: AdCardProps) => {
+export const AdCard = memo(({ ad, selectable, selected, onToggleSelect }: AdCardProps) => {
   const navigate = useNavigate();
   const [imageLoaded, setImageLoaded] = useState(false);
 
   const handleClick = () => {
-    navigate(`/item/${ad.id}`);
+    if (!selectable) navigate(`/item/${ad.id}`);
+  };
+
+  const handleCheckClick = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+  };
+
+  const handleToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.stopPropagation();
+    onToggleSelect?.(ad.id, e.currentTarget.checked);
   };
 
   return (
@@ -44,7 +56,7 @@ export const AdCard = memo(({ ad }: AdCardProps) => {
         padding="lg"
         radius="md"
         withBorder
-        className="cursor-pointer hover:shadow-md transition-shadow"
+        className="cursor-pointer hover:shadow-md transition-shadow relative"
         onClick={handleClick}
       >
         <Card.Section>
@@ -88,6 +100,11 @@ export const AdCard = memo(({ ad }: AdCardProps) => {
             {formatDate(ad.createdAt)}
           </Text>
         </Stack>
+        {selectable && (
+          <button className="absolute right-2 bottom-2 z-10 cursor-pointer" onClick={handleCheckClick}>
+            <Checkbox checked={!!selected} onChange={handleToggle} aria-label="Выбрать объявление" />
+          </button>
+        )}
       </Card>
     </m.div>
   );

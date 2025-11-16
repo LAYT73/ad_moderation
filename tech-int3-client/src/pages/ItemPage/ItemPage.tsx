@@ -3,7 +3,7 @@ import { IconArrowLeft } from '@tabler/icons-react';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 
 import { useAd } from '@/shared/hooks/useAd';
-import { useAdList } from '@/shared/hooks/useAdList';
+import { useAdIdsList } from '@/shared/hooks/useAdIdsList';
 import { useModerationMutations } from '@/shared/hooks/useModerationMutations';
 
 import { AdCharacteristics } from './components/AdCharacteristics';
@@ -23,7 +23,7 @@ export default function ItemPage() {
   const page = Number(searchParams.get('page')) || 1;
 
   const { data: ad, isLoading, isError, error } = useAd(adId);
-  const ids = useAdList(page);
+  const ids = useAdIdsList(page);
   const idx = ids.indexOf(adId);
   const prevId = idx > 0 ? ids[idx - 1] : undefined;
   const nextId = idx < ids.length - 1 ? ids[idx + 1] : undefined;

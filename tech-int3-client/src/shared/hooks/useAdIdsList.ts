@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { adsApi } from '@/shared/api/resources/ads';
 
-export function useAdList(page: number) {
+export function useAdIdsList(page: number) {
   const { data } = useQuery({
     queryKey: ['ads', 'list', { page }],
     queryFn: () => adsApi.list({ page, limit: 10 }),

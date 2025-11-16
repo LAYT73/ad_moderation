@@ -33,6 +33,7 @@
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.9.6",
+    "recharts": "^3.4.1",
     "tailwind-merge": "^3.4.0",
     "tailwindcss": "^4.1.17",
     "zod": "^4.1.12"
@@ -43,6 +44,7 @@
     "@types/node": "^24.10.0",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
+    "@types/recharts": "^2.0.1",
     "@vitejs/plugin-react-swc": "^4.2.1",
     "autoprefixer": "^10.4.22",
     "depcheck": "^1.4.7",
